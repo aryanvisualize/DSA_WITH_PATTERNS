@@ -2,38 +2,75 @@
 
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        Set<List<Integer>> set = new HashSet<>();   //Using extra space
 
+        // //Two Pointer --> O(n^2) -> Without extra space
+        List<List<Integer>> ans = new ArrayList<>();
         int n = nums.length;
         Arrays.sort(nums);
 
-        //Two Pointer --> O(n^2)
         for(int i=0;i<n-2;i++){
-            int j = i+1, k=n-1;
+            if(i>0 && nums[i] == nums[i-1]) continue;
+            int j = i+1;
+            int k = n-1;
             while(j<k){
-                if(nums[i]+nums[j]+nums[k] < 0){
-                    j++;
-                }
-                else if(nums[i]+nums[j]+nums[k] > 0){
-                    k--;
-                }
-                else if(nums[i]+nums[j]+nums[k] == 0){
+                if(nums[i]+nums[j]+nums[k]==0){
                     List<Integer> arr = new ArrayList<>();
                     arr.add(nums[i]);
                     arr.add(nums[j]);
                     arr.add(nums[k]);
-
-                    Collections.sort(arr);
-                    set.add(arr);
                     j++;
                     k--;
+                    ans.add(arr);
+                    while(j<n && nums[j]==nums[j-1]){
+                        j++;
+                    }
+                    while(k>=0 &&nums[k]==nums[k+1]){
+                        k--;
+                    }
                 }
-
+                else if(nums[i]+nums[j]+nums[k]<0){
+                    j++;
+                }
+                else k--;
             }
         }
-        ans.addAll(set);
         return ans;
+
+
+
+//----------------------------------------------------------------------------
+//        List<List<Integer>> ans = new ArrayList<>();
+//        Set<List<Integer>> set = new HashSet<>();   //Using extra space
+//
+//        int n = nums.length;
+//        Arrays.sort(nums);
+//
+//        //Two Pointer --> O(n^2)
+//        for(int i=0;i<n-2;i++){
+//            int j = i+1, k=n-1;
+//            while(j<k){
+//                if(nums[i]+nums[j]+nums[k] < 0){
+//                    j++;
+//                }
+//                else if(nums[i]+nums[j]+nums[k] > 0){
+//                    k--;
+//                }
+//                else if(nums[i]+nums[j]+nums[k] == 0){
+//                    List<Integer> arr = new ArrayList<>();
+//                    arr.add(nums[i]);
+//                    arr.add(nums[j]);
+//                    arr.add(nums[k]);
+//
+//                    Collections.sort(arr);
+//                    set.add(arr);
+//                    j++;
+//                    k--;
+//                }
+//
+//            }
+//        }
+//        ans.addAll(set);
+//        return ans;
 
         //----------------------------------------------------------------------------------------
 
