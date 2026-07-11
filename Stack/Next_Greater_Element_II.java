@@ -1,0 +1,50 @@
+//503. Next Greater Element II
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        //Using stack
+        int n = nums.length;
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            ans[i] = -1;
+        }
+        Stack<Integer> st = new Stack<>();
+
+        for (int i =2*n-1; i >=0; i--) {
+            int idx = i%n;
+
+            while (!st.isEmpty() && st.peek() <= nums[idx]) {
+                st.pop();
+            }
+            if (!st.isEmpty()) {
+                ans[idx] = st.peek();
+            }
+            st.push(nums[idx]);
+        }
+        return ans;
+
+
+        
+        //Brute force
+        //int[] ans = new int[nums.length];
+        
+        //for(int i=0; i<nums.length; i++){
+        //    ans[i] = -1;
+        //    for (int j = i+1; j<nums.length; j++) {
+        //        if (nums[j] > nums[i]) {
+        //            ans[i] = nums[j];
+        //            break;
+        //        }
+        //    }
+
+        //    if (ans[i] == -1) {
+        //        for (int j=0; j<i; j++) {
+        //            if (nums[j] > nums[i]) {
+        //                ans[i] = nums[j];
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
+        //return ans;
+    }
+}
